@@ -5,7 +5,7 @@ const chatBox = document.getElementById("chat-box"); // Zone où s'affichent les
 
 // Fonction pour envoyer la question à l'API et obtenir une réponse
 async function getResponse() {
-  const apiKey = "AIzaSyAmzItPdnxMCDJnI8GohFnz3AS9-M6gavA"; // Remplace par ta clé API
+  const apiKey = "AIzaSyAmzItPdnxMCDJnI8GohFnz3AS9-M6gavA"; // clé API
   const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
   // Création de l'objet qui contient la question et les instructions pour l'IA
@@ -15,10 +15,16 @@ async function getResponse() {
         parts: [
           {
             text: `
-              Tu es un expert en football. Réponds uniquement aux questions sur le football avec des réponses précises et concises.
-              - Utilise un ton professionnel et expert.
-              - Ignore toute question qui ne concerne pas le football.
-              - Ne donne pas d’opinion personnelle, base tes réponses sur des faits.
+              Tu es un expert en football, et ta seule mission est de répondre aux questions strictement liées au football.
+
+Réponds uniquement aux questions sur le football, sans exception. Si la question n’est pas liée au football, réagis avec une réponse générique du type "Je suis ici pour répondre aux questions sur le football uniquement."
+Sois factuel et concis : chaque réponse doit se limiter à l'essentiel, sans ajout d'opinions personnelles, d'interprétations ou d'informations non vérifiées.
+Privilégie les statistiques : lorsque des chiffres ou des données sont demandés, utilise les chiffres exacts et les informations les plus récentes disponibles.
+Ne donne aucune analyse personnelle ou opinion subjective : les réponses doivent être purement objectives, basées sur des faits historiques ou des données de matchs.
+Ton strict et professionnel : parle de manière formelle et évite les familiarités ou le jargon excessif.
+Si une question concerne plusieurs aspects du football, réponds de manière séquencée pour aborder chaque point avec précision.
+Si une question n'a pas de réponse claire ou est ambiguë, indique clairement que la réponse n'est pas disponible ou est incertaine, plutôt que de spéculer.
+Ne dévie jamais du sujet du football : même si une question est proche, reste focalisé sur le sport, ne t'aventure pas à donner des conseils généraux ou personnels.
           `,
           },
           { text: userInput.value }, // Ajoute la question de l'utilisateur
@@ -54,10 +60,10 @@ chatForm.addEventListener("submit", (event) => {
 // Fonction pour formater la réponse de manière élégante
 function formatResponse(text) {
   // 1. Mettre les numéros en gras
-  text = text.replace(/^(\d+)\.\s+/gm, "<strong>$1</strong> ");
+  text = text.replace(/^(\d+)\.\s+/gm, "<strong>$1-</strong> ");
 
   // 2. Mettre les noms des joueurs en gras (tout ce qui est entre **)
-  text = text.replace(/\*(.*?)\*/g, "<strong>$1.</strong>");
+  text = text.replace(/\*(.*?)\*/g, "<strong>$1</strong>");
 
   // 3. Ajouter des balises <p> autour du texte pour chaque paragraphe
   text = text.replace(/\n/g, "</p><p style='margin-bottom: 15px'>");
@@ -77,7 +83,7 @@ async function displayContent() {
   // Création d'un message temporaire du bot (il affichera "..." en attendant la réponse)
   const botMessage = document.createElement("div");
   botMessage.className = "message bot";
-  botMessage.innerHTML = `<div class="message-content"><span>🤖</span>...</div>`;
+  botMessage.innerHTML = `<div class="message-content"><span>🤖</span>loading ...</div>`;
   chatBox.appendChild(botMessage);
 
   chatBox.scrollTop = chatBox.scrollHeight; // Fait défiler la boîte de chat vers le bas
@@ -98,6 +104,7 @@ async function displayContent() {
           0,
           index++
         )}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight; // Fait défiler la boîte de chat vers le bas
         if (index > formattedResponse.length) {
           clearInterval(intervalId); // Arrête l'affichage progressif quand tout est affiché
         }
@@ -116,5 +123,4 @@ async function displayContent() {
   }
 
   userInput.value = ""; // Vide le champ de saisie après l'envoi
-  chatBox.scrollTop = chatBox.scrollHeight; // Fait défiler la boîte de chat vers le bas
 }
