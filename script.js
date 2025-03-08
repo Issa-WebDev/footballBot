@@ -1,7 +1,20 @@
 // Sélection des éléments HTML nécessaires
-const chatForm = document.getElementById("chat-form"); // Formulaire du chat
+// const chatForm = document.getElementById("chat-form"); // Formulaire du chat
 const userInput = document.getElementById("user-input"); // Champ où l'utilisateur tape son message
 const chatBox = document.querySelector(".chat-box"); // Zone où s'affichent les messages
+const btnMode = document.getElementById("mode");
+const submit = document.getElementById("submit");
+
+// change mode
+btnMode.addEventListener("click", () => {
+  if (document.body.classList.contains("darkmode")) {
+    document.body.classList.remove("darkmode");
+    btnMode.textContent = "dark";
+  } else {
+    document.body.classList.add("darkmode");
+    btnMode.textContent = "light";
+  }
+});
 
 // Fonction pour envoyer la question à l'API et obtenir une réponse
 async function getResponse() {
@@ -16,15 +29,14 @@ async function getResponse() {
           {
             text: `
               Tu es un expert en football, et ta seule mission est de répondre aux questions strictement liées au football.
-
-Réponds uniquement aux questions sur le football, sans exception. Si la question n’est pas liée au football, réagis avec une réponse générique du type "Je suis ici pour répondre aux questions sur le football uniquement."
-Sois factuel et concis : chaque réponse doit se limiter à l'essentiel, sans ajout d'opinions personnelles, d'interprétations ou d'informations non vérifiées.
-Privilégie les statistiques : lorsque des chiffres ou des données sont demandés, utilise les chiffres exacts et les informations les plus récentes disponibles.
-Ne donne aucune analyse personnelle ou opinion subjective : les réponses doivent être purement objectives, basées sur des faits historiques ou des données de matchs.
-Ton strict et professionnel : parle de manière formelle et évite les familiarités ou le jargon excessif.
-Si une question concerne plusieurs aspects du football, réponds de manière séquencée pour aborder chaque point avec précision.
-Si une question n'a pas de réponse claire ou est ambiguë, indique clairement que la réponse n'est pas disponible ou est incertaine, plutôt que de spéculer.
-Ne dévie jamais du sujet du football : même si une question est proche, reste focalisé sur le sport, ne t'aventure pas à donner des conseils généraux ou personnels.
+              Réponds uniquement aux questions sur le football, sans exception. Si la question n’est pas liée au football, réagis avec une réponse générique du type "Je suis ici pour répondre aux questions sur le football uniquement."
+              Sois factuel et concis : chaque réponse doit se limiter à l'essentiel, sans ajout d'opinions personnelles, d'interprétations ou d'informations non vérifiées.
+              Privilégie les statistiques : lorsque des chiffres ou des données sont demandés, utilise les chiffres exacts et les informations les plus récentes disponibles.
+              Ne donne aucune analyse personnelle ou opinion subjective : les réponses doivent être purement objectives, basées sur des faits historiques ou des données de matchs.
+              Ton strict et professionnel : parle de manière formelle et évite les familiarités ou le jargon excessif.
+              Si une question concerne plusieurs aspects du football, réponds de manière séquencée pour aborder chaque point avec précision.
+              Si une question n'a pas de réponse claire ou est ambiguë, indique clairement que la réponse n'est pas disponible ou est incertaine, plutôt que de spéculer.
+              Ne dévie jamais du sujet du football : même si une question est proche, reste focalisé sur le sport, ne t'aventure pas à donner des conseils généraux ou personnels.
           `,
           },
           { text: userInput.value }, // Ajoute la question de l'utilisateur
@@ -48,15 +60,20 @@ Ne dévie jamais du sujet du football : même si une question est proche, reste 
 }
 
 // Gestion de l'événement d'envoi du formulaire
-chatForm.addEventListener("submit", (event) => {
+submit.addEventListener("click", (event) => {
   event.preventDefault(); // Empêche le rechargement de la page
   if (userInput.value.trim()) {
     document.querySelector(".welcome").style.display = "none";
-    // chatBox.style.display = "block";
-    chatBox.classList.add("chatbx")
-    chatBox
+    chatBox.classList.add("chatbx");
     displayContent();
   } // Affiche le message de l'utilisateur et attend la réponse
+});
+
+userInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault(); // Empêche le retour à la ligne
+    submit.click(); // Simule un clic sur le bouton submit
+  }
 });
 
 // Fonction pour formater la réponse de manière élégante
@@ -68,7 +85,7 @@ function formatResponse(text) {
   text = text.replace(/\*(.*?)\*/g, "<strong>$1</strong>");
 
   // 3. Ajouter des balises <p> autour du texte pour chaque paragraphe
-  text = text.replace(/\n/g, "</p><p style='margin-bottom: 15px'>");
+  text = text.replace(/\n/g, "</p><p style='margin-bottom: 10px'>");
 
   // 4. Encapsuler le texte entier dans une balise <p>
   return "<p>" + text + "</p>";
