@@ -1,7 +1,7 @@
 // Sélection des éléments HTML nécessaires
 const chatForm = document.getElementById("chat-form"); // Formulaire du chat
 const userInput = document.getElementById("user-input"); // Champ où l'utilisateur tape son message
-const chatBox = document.getElementById("chat-box"); // Zone où s'affichent les messages
+const chatBox = document.querySelector(".chat-box"); // Zone où s'affichent les messages
 
 // Fonction pour envoyer la question à l'API et obtenir une réponse
 async function getResponse() {
@@ -52,7 +52,9 @@ chatForm.addEventListener("submit", (event) => {
   event.preventDefault(); // Empêche le rechargement de la page
   if (userInput.value.trim()) {
     document.querySelector(".welcome").style.display = "none";
-    chatBox.style.display = "block";
+    // chatBox.style.display = "block";
+    chatBox.classList.add("chatbx")
+    chatBox
     displayContent();
   } // Affiche le message de l'utilisateur et attend la réponse
 });
@@ -76,14 +78,14 @@ function formatResponse(text) {
 async function displayContent() {
   // Création du message utilisateur et ajout à la boîte de chat
   const userMessage = document.createElement("div");
-  userMessage.className = "message user";
-  userMessage.innerHTML = `<div class="message-content"><span>👨</span>${userInput.value}</div>`;
+  userMessage.className = "message-user user";
+  userMessage.innerHTML = `<div class="message-content">${userInput.value}</div><i class="fa-solid fa-circle-user"></i>`;
   chatBox.appendChild(userMessage);
 
   // Création d'un message temporaire du bot (il affichera "..." en attendant la réponse)
   const botMessage = document.createElement("div");
-  botMessage.className = "message bot";
-  botMessage.innerHTML = `<div class="message-content"><span>🤖</span>loading ...</div>`;
+  botMessage.className = "message-bot bot";
+  botMessage.innerHTML = `<i class="fa-solid fa-robot"></i><div class="message-content">loading ...</div>`;
   chatBox.appendChild(botMessage);
 
   chatBox.scrollTop = chatBox.scrollHeight; // Fait défiler la boîte de chat vers le bas
@@ -100,7 +102,7 @@ async function displayContent() {
       let index = 0;
       // Affichage progressif de la réponse, lettre par lettre
       const intervalId = setInterval(() => {
-        botMessage.innerHTML = `<div class="message-content"><span>🤖</span>${formattedResponse.slice(
+        botMessage.innerHTML = `<i class="fa-solid fa-robot"></i><div class="message-content">${formattedResponse.slice(
           0,
           index++
         )}</div>`;

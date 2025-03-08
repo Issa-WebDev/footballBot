@@ -10,29 +10,53 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
     <script type="module" src="script.js"></script>
   </head>
   <body>
     <!-- ================================================================= -->
-    <h1 class="title">
-      <box-icon name="football" color="#fff"></box-icon>
-      Football_Expert_Bot
-      <box-icon name="football" color="#fff"></box-icon>
-    </h1>
-    <div id="chat-box">
-      <p class="welcome">Comment puis-je vous aider❔</p>
+    <div class="container">
+      <nav>
+        <div>
+          <i class="fa-solid fa-futbol"></i>
+          <h1>FootballBot</h1>
+        </div>
+        <button id="mode">dark</button>
+      </nav>
+
+      <main>
+        <section>
+          <p class="discussion">votre discussion</p>
+          <div class="chat-box">
+            <p class="welcome">
+              Bienvenue sur le chatbot de football ! ⚽🎉 <br> <br>
+               Je suis là pour répondre à vos questions sur les matchs, les équipes, les
+              résultats et plus encore. N'hésitez pas à discuter de vos joueurs
+              et équipes préférés ! 🏆⚽  <br> <br>
+              Comment puis-je vous aider ?
+            </p>
+          </div>
+          <!-- fromulaire -->
+          <form id="chat-form">
+            <textarea
+              id="user-input"
+              rows="2"
+              placeholder="Posez votre question"
+            ></textarea>
+            <button type="submit">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+        </section>
+      </main>
+
+      <footer>
+        <strong>FOOTBALL MADE BY KONE ISSA © SIMPLON CI 2025</strong>
+      </footer>
     </div>
-    <!-- fromulaire -->
-    <form id="chat-form">
-      <input
-        type="text"
-        id="user-input"
-        placeholder="Posez votre question ici..."
-        required
-      />
-      <button type="submit">Envoyer</button>
-    </form>
     <!-- ================================================================= -->
   </body>
 </html>
