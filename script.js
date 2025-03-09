@@ -1,5 +1,4 @@
 // Sélection des éléments HTML nécessaires
-// const chatForm = document.getElementById("chat-form"); // Formulaire du chat
 const userInput = document.getElementById("user-input"); // Champ où l'utilisateur tape son message
 const chatBox = document.querySelector(".chat-box"); // Zone où s'affichent les messages
 const btnMode = document.getElementById("mode");
@@ -37,6 +36,8 @@ async function getResponse() {
               Si une question concerne plusieurs aspects du football, réponds de manière séquencée pour aborder chaque point avec précision.
               Si une question n'a pas de réponse claire ou est ambiguë, indique clairement que la réponse n'est pas disponible ou est incertaine, plutôt que de spéculer.
               Ne dévie jamais du sujet du football : même si une question est proche, reste focalisé sur le sport, ne t'aventure pas à donner des conseils généraux ou personnels.
+
+              dans tes reponse tu peux mettre des emoji aussi pour faire plus beau
           `,
           },
           { text: userInput.value }, // Ajoute la question de l'utilisateur
