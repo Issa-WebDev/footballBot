@@ -63,7 +63,7 @@ body {
 
 main {
   width: 100%;
-  height: 84vh;
+  height: 80vh;
   background-image: var(--dark-images);
   background-position: center;
   background-size: cover;
@@ -121,7 +121,7 @@ main section form button i {
 /* footer  */
 footer {
   width: 100%;
-  height: 6vh;
+  height: 10vh;
   background: var(--primary-color);
   display: flex;
   align-items: center;
@@ -194,5 +194,8 @@ footer {
   }
   main {
     padding: 20px var(--padding-mobile);
+  }
+  main section .chat-box {
+    padding: 20px 2px;
   }
 }
