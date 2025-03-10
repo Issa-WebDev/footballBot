@@ -39,9 +39,6 @@ footballbot/
 - ├── index.html
 - ├── style.css
 - ├── script.js
-- ├── images/
-- │ ├── lightbg.jpg
-- │ └── darkbg.jpg
 
 ---
 
@@ -50,7 +47,6 @@ footballbot/
 - **API Gemini** : Pour générer des réponses intelligentes. [Documentation de l'API Gemini](https://ai.google.dev/gemini-api/docs/api-key)
 - **Google Fonts** : Utilisation de la police "Poppins"
 - **Font Awesome** : Pour les icônes utilisées dans l'interface.
-- **Images d'arrière-plan** : Utilisées pour les modes clair et sombre.
 
 ---
 
@@ -127,11 +123,11 @@ Le fichier JavaScript gère la logique du chatbot :
 
 ### Interface de FootballBot en mode clair.
 
-![Aperçu de FootballBot](/thums/footballBot-lightMode.png)
+![Aperçu de FootballBot](/thums/light.png)
 
 ### Interface de FootballBot en mode sombre.
 
-![Aperçu de FootballBot](/thums/footballBot-darkMode.png)
+![Aperçu de FootballBot](/thums/dark.png)
 
 # Auteur 👤
 

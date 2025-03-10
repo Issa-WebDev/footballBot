@@ -37,7 +37,8 @@ async function getResponse() {
               Si une question n'a pas de réponse claire ou est ambiguë, indique clairement que la réponse n'est pas disponible ou est incertaine, plutôt que de spéculer.
               Ne dévie jamais du sujet du football : même si une question est proche, reste focalisé sur le sport, ne t'aventure pas à donner des conseils généraux ou personnels.
 
-              dans tes reponse tu peux mettre des emoji aussi pour faire plus beau
+              dans tes reponse tu peux mettre des emoji aussi pour faire plus beau en fonctions des mots
+
           `,
           },
           { text: userInput.value }, // Ajoute la question de l'utilisateur
@@ -66,8 +67,11 @@ submit.addEventListener("click", (event) => {
   if (userInput.value.trim()) {
     document.querySelector(".welcome").style.display = "none";
     chatBox.classList.add("chatbx");
+    // Affiche le message de l'utilisateur et attend la réponse
     displayContent();
-  } // Affiche le message de l'utilisateur et attend la réponse
+    // Vide le champ de saisie après l'envoi
+    userInput.value = "";
+  } 
 });
 
 userInput.addEventListener("keydown", (event) => {
@@ -100,12 +104,6 @@ async function displayContent() {
   userMessage.innerHTML = `<div class="message-content">${userInput.value}</div><i class="fa-solid fa-circle-user"></i>`;
   chatBox.appendChild(userMessage);
 
-  // Création d'un message temporaire du bot (il affichera "..." en attendant la réponse)
-  const botMessage = document.createElement("div");
-  botMessage.className = "message-bot bot";
-  botMessage.innerHTML = `<i class="fa-solid fa-robot"></i><div class="message-content">loading ...</div>`;
-  chatBox.appendChild(botMessage);
-
   chatBox.scrollTop = chatBox.scrollHeight; // Fait défiler la boîte de chat vers le bas
 
   try {
@@ -118,17 +116,25 @@ async function displayContent() {
       let formattedResponse = formatResponse(response);
 
       let index = 0;
-      // Affichage progressif de la réponse, lettre par lettre
-      const intervalId = setInterval(() => {
-        botMessage.innerHTML = `<i class="fa-solid fa-robot"></i><div class="message-content">${formattedResponse.slice(
-          0,
-          index++
-        )}</div>`;
-        chatBox.scrollTop = chatBox.scrollHeight; // Fait défiler la boîte de chat vers le bas
-        if (index > formattedResponse.length) {
-          clearInterval(intervalId); // Arrête l'affichage progressif quand tout est affiché
-        }
-      }, 10);
+      setTimeout(() => {
+        // Création d'un message temporaire du bot (il affichera "..." en attendant la réponse)
+        const botMessage = document.createElement("div");
+        botMessage.className = "message-bot bot";
+        botMessage.innerHTML = `<i class="fa-solid fa-robot"></i><div class="message-content">loading ...</div>`;
+        chatBox.appendChild(botMessage);
+
+        // Affichage progressif de la réponse, lettre par lettre
+        const intervalId = setInterval(() => {
+          botMessage.innerHTML = `<i class="fa-solid fa-robot"></i><div class="message-content">${formattedResponse.slice(
+            0,
+            index++
+          )}</div>`;
+          chatBox.scrollTop = chatBox.scrollHeight; // Fait défiler la boîte de chat vers le bas
+          if (index > formattedResponse.length) {
+            clearInterval(intervalId); // Arrête l'affichage progressif quand tout est affiché
+          }
+        }, 10);
+      }, 100);
     } else {
       // Si l'IA ne répond pas correctement, affiche un message d'erreur formaté
       botMessage.innerHTML = `<div class="message-content">Je n'ai pas compris la question, mais assure-toi que ta question porte sur le football.</div>`;
@@ -141,6 +147,4 @@ async function displayContent() {
     botMessage.innerHTML = `<div class="message-content">Erreur: ${error.message}</div>`;
     chatBox.appendChild(botMessage);
   }
-
-  userInput.value = ""; // Vide le champ de saisie après l'envoi
 }
