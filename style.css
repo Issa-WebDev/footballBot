@@ -145,7 +145,7 @@ footer {
   justify-content: center;
 }
 
-/* js class */
+/* LES CLASS JS */
 .message-user {
   width: 100%;
   display: flex;
@@ -187,8 +187,13 @@ footer {
   flex-direction: column;
   gap: 20px;
 }
+#error {
+  background:  #D32F2F;
+  color: #ffffff;
+  font-style: italic;
+}
 
-/* responsive */
+/* RESPONSIVE DESIGN */
 @media (max-width: 1000px) {
   main {
     padding: 20px var(--padding-main);
