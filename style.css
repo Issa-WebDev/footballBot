@@ -8,7 +8,7 @@
   transition: all 0.3s;
 }
 :root {
-  --bg: #fff;
+  --bg: #e7e7e7;
   --text-color: #f7f7f7;
   --padding-main: 30px;
   --padding-mobile: 15px;
