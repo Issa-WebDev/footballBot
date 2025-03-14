@@ -100,6 +100,8 @@ async function displayContent() {
   const botMessage = document.createElement("div");
   botMessage.className = "message-bot bot";
 
+
+  // =================  GESTION DES ERREUR AVEC TRY/CATCH ==========================================
   try {
     const result = await getResponse();
     console.log(result);
@@ -132,3 +134,5 @@ async function displayContent() {
     chatBox.appendChild(botMessage);
   }
 }
+
+// ====================== FIN DE CODE ==============================================================
